@@ -63,6 +63,8 @@ export default {
         'accent-gold': '#FBBF24',
         'accent-green': '#10B981',
         'accent-red': '#EF4444',
+        'accent-purple': '#a855f7',
+        'accent-orange': '#f97316',
       },
       borderRadius: {
         lg: 'var(--radius)',

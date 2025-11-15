@@ -28,7 +28,19 @@ const MyCreations: React.FC = () => {
 
     const isDeletable = (item: ContentItem) => {
         const twentyFourHours = 24 * 60 * 60 * 1000;
-        return (Date.now() - new Date(item.createdAt).getTime()) > twentyFourHours;
+        const createdTime = new Date(item.createdAt).getTime();
+        const currentTime = Date.now();
+        const timeDiff = currentTime - createdTime;
+        console.log('Delete check:', { 
+            itemId: item.id, 
+            createdAt: item.createdAt, 
+            createdTime, 
+            currentTime, 
+            timeDiff, 
+            hours: timeDiff / (60 * 60 * 1000),
+            isDeletable: timeDiff > twentyFourHours 
+        });
+        return timeDiff > twentyFourHours;
     }
 
     return (

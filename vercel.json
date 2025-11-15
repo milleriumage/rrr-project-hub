@@ -1,5 +1,20 @@
 {
   "rewrites": [
+    { "source": "/chat/:slug", "destination": "/index.html" },
+    { "source": "/chat", "destination": "/index.html" },
+    { "source": "/vitrine/:slug", "destination": "/index.html" },
+    { "source": "/vitrine/:slug/:contentId", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
   ]
 }

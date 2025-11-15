@@ -53,7 +53,7 @@ const ShareIcon = () => (
 );
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onNavigate }) => {
-  const { currentScreen, userRole, sidebarVisibility, shareVitrine } = useCredits();
+  const { currentScreen, userRole, sidebarVisibility, shareVitrine, shareChatLink, shareCreatorChatList } = useCredits();
 
   if (!isOpen) return null;
 
@@ -104,25 +104,86 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, onNavig
         </div>
 
         <div className="overflow-y-auto h-full pb-20">
-          {/* Share Funators e Funators Chat */}
+          {/* Share Links */}
           <div className="p-4 space-y-2 border-b border-neutral-700">
+            <p className="px-2 text-xs font-semibold uppercase text-neutral-500 mb-3">Share Links</p>
+            
             <button
               onClick={() => {
                 shareVitrine();
                 onClose();
               }}
-              className="w-full flex items-center p-3 rounded-lg bg-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white transition-colors"
+              className="w-full flex items-center justify-between p-3 rounded-lg bg-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white transition-colors"
             >
-              <span className="w-5 h-5 mr-3"><ShareIcon /></span>
-              <span className="font-semibold">Share Funators</span>
+              <div className="flex items-center">
+                <span className="w-5 h-5 mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <rect x="7" y="7" width="3" height="9"/>
+                    <rect x="14" y="7" width="3" height="5"/>
+                  </svg>
+                </span>
+                <span className="font-semibold">Showcase Link</span>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+            </button>
+
+            <button
+              onClick={() => {
+                if (shareChatLink) shareChatLink();
+                onClose();
+              }}
+              className="w-full flex items-center justify-between p-3 rounded-lg bg-accent-purple/20 text-accent-purple hover:bg-accent-purple hover:text-white transition-colors"
+            >
+              <div className="flex items-center">
+                <span className="w-5 h-5 mr-3"><ChatIcon /></span>
+                <span className="font-semibold">FunChat</span>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+            </button>
+
+            <button
+              onClick={() => {
+                if (shareCreatorChatList) shareCreatorChatList();
+                onClose();
+              }}
+              className="w-full flex items-center justify-between p-3 rounded-lg bg-accent-green/20 text-accent-green hover:bg-accent-green hover:text-white transition-colors"
+            >
+              <div className="flex items-center">
+                <span className="w-5 h-5 mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                </span>
+                <span className="font-semibold">Feed Creator</span>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
             </button>
             
             <button
               onClick={() => onNavigate('creator-chat')}
-              className="w-full flex items-center p-3 rounded-lg bg-accent-purple/20 text-accent-purple hover:bg-accent-purple hover:text-white transition-colors"
+              className="w-full flex items-center justify-between p-3 rounded-lg bg-accent-orange/20 text-accent-orange hover:bg-accent-orange hover:text-white transition-colors"
             >
-              <span className="w-5 h-5 mr-3"><ChatIcon /></span>
-              <span className="font-semibold">Funators Chat</span>
+              <div className="flex items-center">
+                <span className="w-5 h-5 mr-3"><ChatIcon /></span>
+                <span className="font-semibold">Funators Chat</span>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
             </button>
           </div>
           

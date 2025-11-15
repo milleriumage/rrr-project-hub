@@ -5,6 +5,7 @@ import { useCredits } from '../hooks/useCredits';
 import CancelSubscriptionModal from './CancelSubscriptionModal';
 import Notification from './Notification';
 import { MobileMenuButton, MobileMenu } from './MobileMenu';
+import ShareLinksModal from './ShareLinksModal';
 
 interface NavbarProps {
   navigate: (screen: Screen) => void;
@@ -30,6 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ navigate }) => {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   const handleShareVitrine = () => {
     shareVitrine();
@@ -69,6 +71,17 @@ const Navbar: React.FC<NavbarProps> = ({ navigate }) => {
   return (
     <>
       {notification && <Notification message={notification} type="success" />}
+      <ShareLinksModal 
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        shareVitrine={shareVitrine}
+        shareChatLink={shareChatLink}
+        shareCreatorChatList={shareCreatorChatList}
+        onFunatorsChat={() => {
+          setShowShareModal(false);
+          navigate('creator-chat');
+        }}
+      />
       <MobileMenu 
         isOpen={isMobileMenuOpen} 
         onClose={() => setIsMobileMenuOpen(false)}
@@ -83,39 +96,12 @@ const Navbar: React.FC<NavbarProps> = ({ navigate }) => {
           <div className="flex items-center gap-2">
             <MobileMenuButton onClick={() => setIsMobileMenuOpen(true)} />
             <button 
-              onClick={handleShareVitrine}
+              onClick={() => setShowShareModal(true)}
               className="hidden sm:flex items-center bg-brand-primary/20 hover:bg-brand-primary/30 text-brand-primary font-semibold py-2 px-3 md:px-4 rounded-full transition-colors duration-200 text-sm md:text-base"
-              title="Copy Vitrine Link"
+              title="Share Links"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                <rect x="7" y="7" width="3" height="9"/>
-                <rect x="14" y="7" width="3" height="5"/>
-              </svg>
-              <span className="hidden md:inline">Vitrine</span>
-            </button>
-            <button 
-              onClick={handleShareChat}
-              className="hidden sm:flex items-center bg-accent-purple/20 hover:bg-accent-purple/30 text-accent-purple font-semibold py-2 px-3 md:px-4 rounded-full transition-colors duration-200 text-sm md:text-base"
-              title="Copy Chat Link"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span className="hidden md:inline">Chat</span>
-            </button>
-            <button 
-              onClick={handleShareCreatorList}
-              className="hidden sm:flex items-center bg-accent-green/20 hover:bg-accent-green/30 text-accent-green font-semibold py-2 px-3 md:px-4 rounded-full transition-colors duration-200 text-sm md:text-base"
-              title="Copy Creator List"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-              <span className="hidden md:inline">Creators</span>
+              <ShareIcon />
+              <span className="hidden md:inline">Share Links</span>
             </button>
             {currentUser && (
               <>
@@ -128,8 +114,8 @@ const Navbar: React.FC<NavbarProps> = ({ navigate }) => {
                     <rect x="7" y="7" width="3" height="9"/>
                     <rect x="14" y="7" width="3" height="5"/>
                   </svg>
-                  <span className="hidden md:inline">My Vitrine</span>
-                  <span className="md:hidden">Vitrine</span>
+                  <span className="hidden md:inline">My Showcase</span>
+                  <span className="md:hidden">Showcase</span>
                 </button>
                 <button 
                   onClick={() => navigate('creator-chat')}
